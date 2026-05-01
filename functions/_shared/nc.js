@@ -1,10 +1,10 @@
-// NC TW Aion 2 official API client (edge runtime)
+// NC TW Aion 2 official API client (edge runtime). Mirrors backend/services/nc_client.py
 const BASE = 'https://tw.ncsoft.com/aion2'
 const HEADERS = {
   'User-Agent': 'Mozilla/5.0',
-  'Accept': 'application/json, text/plain, */*',
-  'Accept-Language': 'zh-TW,zh;q=0.9',
-  'Referer': 'https://tw.ncsoft.com/aion2/',
+  'Accept': 'application/json',
+  'Accept-Language': 'zh-TW',
+  'Referer': 'https://tw.ncsoft.com/aion2/characters/index',
 }
 
 export async function ncGetJson (path, params) {
@@ -23,5 +23,5 @@ export async function ncGetRaw (path) {
 }
 
 export function ncSearch ({ keyword, serverId, race, pcId, page = 1, size = 40 }) {
-  return ncGetJson('/api/character/search', { keyword, serverId, race, pcId, page, size })
+  return ncGetJson('/api/search/aion2tw/search/v2/character', { keyword, serverId, race, pcId, page, size })
 }

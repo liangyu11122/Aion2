@@ -21,9 +21,10 @@ export async function onRequestGet ({ request }) {
   let ncErr = null
   try {
     const data = await ncSearch(params)
-    const list = data?.list || data?.data?.list || []
+    const list = data?.list || []
     if (list.length) {
-      return json({ source: 'nc', list, total: data?.total ?? data?.data?.total ?? list.length })
+      const total = data?.pagination?.total ?? list.length
+      return json({ source: 'nc', list, total })
     }
     ncErr = 'empty'
   } catch (e) { ncErr = String(e.message || e) }
@@ -31,9 +32,9 @@ export async function onRequestGet ({ request }) {
   // fallback bnshive
   try {
     const bn = await bnshiveSearch(params)
-    const raw = bn?.results || bn?.data || bn?.list || []
+    const raw = bn?.results || []
     const list = normaliseBnshive(raw, params.pcId)
-    return json({ source: 'bnshive', list, total: list.length, ncError: ncErr })
+    return json({ source: 'bnshive', list, total: bn?.total ?? list.length, ncError: ncErr })
   } catch (e) {
     return json({ source: 'none', list: [], total: 0, ncError: ncErr, bnshiveError: String(e.message || e) }, 502)
   }
