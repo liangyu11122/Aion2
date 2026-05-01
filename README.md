@@ -68,6 +68,21 @@ python app.py                    # 后端会自动 serve dist/index.html
 
 → 浏览器打开 `http://127.0.0.1:5180/`
 
+## 部署到 Cloudflare Pages
+
+仓库根 `frontend/functions/` 是 Pages Functions（JS 版后端，与 Flask 后端等价 API）。
+
+Cloudflare Pages → Connect Git，选这个 repo，Build configuration：
+
+| 字段 | 值 |
+|---|---|
+| Root directory | `frontend` |
+| Build command | `npm run build` |
+| Build output | `dist` |
+
+可选：在 Pages 项目 → **Settings → Functions → KV namespace bindings**，
+绑定一个 KV namespace 到变量名 **`CHAR_CACHE`**。绑定后 `/api/char` 会启用 1 小时缓存 + 24 小时 stale fallback；不绑定也能正常工作（每次都直拉 bnshive）。
+
 ## API
 
 | 方法 | 路径 | 说明 |
