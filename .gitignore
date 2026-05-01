@@ -1,0 +1,9 @@
+# Aion 2 caches & local data
+char_cache.sqlite
+sample.json
+_probe.py
+__pycache__/
+*.pyc
+
+# Original spreadsheet (large, personal)
+材料成本计算表_模板.xlsm
