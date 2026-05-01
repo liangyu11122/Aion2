@@ -76,9 +76,11 @@ Cloudflare Pages → Connect Git，选这个 repo，Build configuration：
 
 | 字段 | 值 |
 |---|---|
-| Root directory | `frontend` |
+| Root directory | *(留空)* |
 | Build command | `npm run build` |
-| Build output | `dist` |
+| Build output | `frontend/dist` |
+
+`functions/` 在仓库根，Pages 会自动识别为 Pages Functions（API 路由）。
 
 可选：在 Pages 项目 → **Settings → Functions → KV namespace bindings**，
 绑定一个 KV namespace 到变量名 **`CHAR_CACHE`**。绑定后 `/api/char` 会启用 1 小时缓存 + 24 小时 stale fallback；不绑定也能正常工作（每次都直拉 bnshive）。
